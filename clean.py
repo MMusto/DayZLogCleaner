@@ -10,7 +10,7 @@ class DayZLogCleaner():
     def is_log_file(self, file) -> "bool":
         return file.split(".")[-1] in self.log_extensions and os.path.isfile(file)
         
-    def convert_size(self, size,precision=2):
+    def convert_size(self, size,precision=2) -> None:
         suffixes=[' B',' KB',' MB',' GB',' TB']
         suffixIndex = 0
         while size > 1024 and suffixIndex < 4:
@@ -56,7 +56,8 @@ class DayZLogCleaner():
         if self.logs_to_delete and self.confirm_delete():
             self.delete_logs()
             print("Done!.")
-            
+        os.system('pause')
+        
 if __name__ == "__main__":
     if sys.platform == "win32":
         cleaner = DayZLogCleaner()

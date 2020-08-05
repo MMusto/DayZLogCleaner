@@ -32,8 +32,12 @@ class DayZLogCleaner():
         self.log_stats = f"Found {log_count} log files ({self.convert_size(delete_size)})."
     
     def delete_logs(self) -> "bool":
+        self.error = 0
         for f in self.logs_to_delete:
-            os.remove(f)
+            try:
+                os.remove(f)
+            except:
+                self.error += 1
     
     def confirm_delete(self) -> "bool":
         resp = input("Are you sure you want to delete ALL DayZ log files? [Y/n]").strip()
@@ -55,6 +59,8 @@ class DayZLogCleaner():
         
         if self.logs_to_delete and self.confirm_delete():
             self.delete_logs()
+            if(self.error):
+                print(f"[!] Unable to delete {self.error} files. Make sure your game isn't running!")
             print("Done!.")
         os.system('pause')
         

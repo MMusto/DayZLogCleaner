@@ -10,7 +10,7 @@ class DayZLogCleaner():
     def is_log_file(self, file) -> "bool":
         return file.split(".")[-1] in self.log_extensions and os.path.isfile(file)
         
-    def convert_size(self, size,precision = 2) -> None:
+    def convert_size(self, size,precision = 2) -> "str":
         suffixes = [' B',' KB',' MB',' GB',' TB']
         suffixIndex = 0
         while size > 1024 and suffixIndex < 4:

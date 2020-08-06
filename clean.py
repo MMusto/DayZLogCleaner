@@ -10,8 +10,8 @@ class DayZLogCleaner():
     def is_log_file(self, file) -> "bool":
         return file.split(".")[-1] in self.log_extensions and os.path.isfile(file)
         
-    def convert_size(self, size,precision=2) -> None:
-        suffixes=[' B',' KB',' MB',' GB',' TB']
+    def convert_size(self, size,precision = 2) -> None:
+        suffixes = [' B',' KB',' MB',' GB',' TB']
         suffixIndex = 0
         while size > 1024 and suffixIndex < 4:
             suffixIndex += 1 #increment the index of the suffix
@@ -48,10 +48,15 @@ class DayZLogCleaner():
             print("Deleting Logs...")
             return True
     
+    def exit(self):
+        print("Exitting...")
+        os.system('pause')
+    
     def run(self) -> None:
         os.system('cls')
         if not pathlib.Path.exists(self.log_path):
-            print(f"[!] DayZ Log folder not found. ({self.log_path} does not exist.) \nExitting...")
+            print(f"[!] DayZ Log folder not found. ({self.log_path} does not exist.)")
+            self.exit()
             return
         
         self.pre_compute()
@@ -62,13 +67,14 @@ class DayZLogCleaner():
             if(self.error):
                 print(f"[!] Unable to delete {self.error} files. Make sure your game isn't running!")
             print("Done!.")
-        os.system('pause')
+        self.exit()
         
 if __name__ == "__main__":
+    cleaner = DayZLogCleaner()
     if sys.platform == "win32":
-        cleaner = DayZLogCleaner()
         cleaner.run()
     else:
         print(f"Error: Unsupported OS {sys.platform}")
+        cleaner.exit()
         
         

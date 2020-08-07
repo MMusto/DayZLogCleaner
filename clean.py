@@ -4,6 +4,10 @@ import os
 
 class DayZLogCleaner():
     def __init__(self):
+        os.system("mode con: cols=55 lines=20")
+        os.system("TITLE DayZ Log Cleaner")
+        os.system('color 0A')
+        
         self.log_path = pathlib.Path.home() / "AppData/Local/DayZ"
         self.log_extensions = {"mdmp", "RPT", "log"}
     
@@ -74,7 +78,7 @@ if __name__ == "__main__":
     if sys.platform == "win32":
         cleaner.run()
     else:
-        print(f"Error: Unsupported OS {sys.platform}")
+        print(f"[!] Unsupported OS: {sys.platform}")
         cleaner.exit()
         
         
